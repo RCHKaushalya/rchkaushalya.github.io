@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rasindu Kaushalya — CS Undergraduate & Systems Developer</title>
+  <meta name="description" content="Portfolio of Rasindu Kaushalya — Systems programming, OS development, AI/ML, and compiler design."/>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    /* ── Variables ── */
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --accent: #58a6ff;
+      --accent2: #3fb950;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Inter', sans-serif;
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; width: 100%;
+      background: rgba(13,17,23,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+    }
+    .nav-logo { font-family: var(--font-mono); font-weight: 700; color: var(--accent); font-size: 1.1rem; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* ── Sections ── */
+    section { padding: 6rem 2rem; max-width: 900px; margin: 0 auto; }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 5rem;
+    }
+    .hero-tag {
+      font-family: var(--font-mono);
+      color: var(--accent2);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .hero-name {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .hero-sub {
+      font-family: var(--font-mono);
+      color: var(--muted);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      margin: 1.2rem 0 2.5rem;
+    }
+    .hero-sub span { color: var(--accent); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent); color: #0d1117;
+      padding: 0.75rem 1.5rem; border-radius: 6px;
+      font-weight: 600; font-size: 0.95rem;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; }
+    .btn-ghost {
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--accent);
+      margin-left: 1rem;
+    }
+    .btn-ghost:hover { background: rgba(88,166,255,0.1); }
+
+    /* ── About ── */
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent2);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+    }
+    .section-heading {
+      font-size: 1.8rem; font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .about-text p strong { color: var(--text); }
+    .about-info { font-family: var(--font-mono); font-size: 0.85rem; }
+    .about-info div { margin-bottom: 0.8rem; }
+    .about-info .label { color: var(--muted); }
+    .about-info .val { color: var(--accent); }
+
+    /* ── Skills ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); }
+    .skill-card h3 { font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent); margin-bottom: 0.8rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      background: rgba(88,166,255,0.1);
+      color: var(--accent);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+    }
+
+    /* ── Projects ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .project-card h3 { font-family: var(--font-mono); font-size: 1rem; margin-bottom: 0.5rem; }
+    .project-card p { color: var(--muted); font-size: 0.9rem; flex: 1; margin-bottom: 1rem; }
+    .project-meta { display: flex; align-items: center; justify-content: space-between; }
+    .project-lang {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.8rem; color: var(--muted); font-family: var(--font-mono);
+    }
+    .lang-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent2); }
+    .lang-dot.rust { background: #dea584; }
+    .lang-dot.c { background: #555555; }
+    .lang-dot.python { background: #3572A5; }
+    .lang-dot.asm { background: #6E4C13; }
+    .project-link { font-size: 0.8rem; font-family: var(--font-mono); }
+
+    /* ── Contact ── */
+    .contact-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 3rem;
+      text-align: center;
+    }
+    .contact-wrapper p { color: var(--muted); max-width: 500px; margin: 0.8rem auto 2rem; }
+    .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
+    .social-links a {
+      display: flex; align-items: center; gap: 0.5rem;
+      color: var(--muted); font-size: 0.9rem;
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.2rem; border-radius: 6px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .social-links a:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .about-grid { grid-template-columns: 1fr; }
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <span class="nav-logo">RCHKaushalya<span style="color:var(--accent2)">_</span></span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="hero">
+  <p class="hero-tag">// Hello, World!</p>
+  <!-- EDIT THIS: Your name -->
+  <h1 class="hero-name">Rasindu<br>Appuhami</h1>
+  <!-- EDIT THIS: Your tagline -->
+  <p class="hero-sub">Systems Programmer · OS Developer · <span>AI/ML Enthusiast</span></p>
+  <div>
+    <a href="#projects" class="btn"><i class="fa fa-code"></i> View My Work</a>
+    <a href="#contact" class="btn btn-ghost"><i class="fa fa-envelope"></i> Get In Touch</a>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section id="about">
+  <p class="section-title">// About Me</p>
+  <h2 class="section-heading">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <!-- EDIT THIS: Your bio -->
+      <p>
+        I'm a <strong>final-year Computer Science undergraduate</strong> at Trincomalee Campus, University of Trincomalee,
+        with a deep passion for low-level systems programming and high-level AI/ML applications.
+      </p>
+      <p>
+        I'm currently exploring research at the intersection of <strong>operating systems, compilers, and artificial intelligence</strong>.
+        My long-term goal is to build a domain-specific programming language and an AI-powered shell
+        designed for productivity-driven developer environments.
+      </p>
+      <p>
+        When I'm not writing C or Rust, I'm documenting my journey through system programming,
+        reading about compiler design, or experimenting with OS bootloaders from scratch.
+      </p>
+    </div>
+    <div class="about-info">
+      <!-- EDIT THIS: Your details -->
+      <div><span class="label">University  </span><span class="val">Trincomalee Campus</span></div>
+      <div><span class="label">Degree      </span><span class="val">BSc Computer Science</span></div>
+      <div><span class="label">Year        </span><span class="val">Final Year</span></div>
+      <div><span class="label">Location    </span><span class="val">Sri Lanka 🇱🇰</span></div>
+      <div><span class="label">Focus       </span><span class="val">Systems / OS / AI</span></div>
+      <div><span class="label">Status      </span><span class="val" style="color:var(--accent2)">Open to Opportunities</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ── -->
+<section id="skills">
+  <p class="section-title">// Skills</p>
+  <h2 class="section-heading">My Tech Toolbox</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3><i class="fa fa-microchip"></i> Systems Programming</h3>
+      <div class="skill-tags">
+        <span class="tag">C</span>
+        <span class="tag">C++</span>
+        <span class="tag">Rust</span>
+        <span class="tag">Assembly</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3><i class="fa fa-brain"></i> AI / ML</h3>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">ML Concepts</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3><i class="fa fa-desktop"></i> Desktop / GUI</h3>
+      <div class="skill-tags">
+        <span class="tag">Kivy</span>
+        <span class="tag">Python</span>
+        <span class="tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3><i class="fa fa-server"></i> OS & Low Level</h3>
+      <div class="skill-tags">
+        <span class="tag">Bootloader</span>
+        <span class="tag">Kernel Dev</span>
+        <span class="tag">Shell Design</span>
+        <span class="tag">Memory Alloc</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3><i class="fa fa-tools"></i> Dev Tools</h3>
+      <div class="skill-tags">
+        <span class="tag">Git</span>
+        <span class="tag">Linux</span>
+        <span class="tag">VS Code</span>
+        <span class="tag">GDB</span>
+      </div>
+    </div>
+    <!-- EDIT THIS: Add more skill cards as needed -->
+  </div>
+</section>
+
+<!-- ── Projects ── -->
+<section id="projects">
+  <p class="section-title">// Projects</p>
+  <h2 class="section-heading">Things I've Built</h2>
+  <div class="projects-grid">
+
+    <!-- EDIT THIS: Replace with your real projects from GitHub -->
+    <div class="project-card">
+      <h3>🦀 todo-rust</h3>
+      <p>A command-line to-do list app built in Rust — my introduction to ownership, traits, and Cargo.</p>
+      <div class="project-meta">
+        <span class="project-lang"><span class="lang-dot rust"></span> Rust</span>
+        <a href="https://github.com/RCHKaushalya/todo-rust" class="project-link" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>🧠 pocket-allocator</h3>
+      <p>A minimal custom memory allocator written in Rust — exploring heap management from scratch.</p>
+      <div class="project-meta">
+        <span class="project-lang"><span class="lang-dot rust"></span> Rust</span>
+        <a href="https://github.com/RCHKaushalya/pocket-allocator" class="project-link" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>🐚 mini-shell</h3>
+      <p>A mini Unix shell written in C with command parsing, process forking, and basic piping support.</p>
+      <div class="project-meta">
+        <span class="project-lang"><span class="lang-dot c"></span> C</span>
+        <a href="https://github.com/RCHKaushalya/mini-shell" class="project-link" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>⚙️ os-bootloader</h3>
+      <p>First project in my OS development roadmap — a bootloader written in x86 Assembly that boots into protected mode.</p>
+      <div class="project-meta">
+        <span class="project-lang"><span class="lang-dot asm"></span> Assembly</span>
+        <a href="https://github.com/RCHKaushalya/os-bootloader" class="project-link" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>🖥️ os-kernel</h3>
+      <p>Second step of the OS roadmap — a minimal kernel with basic interrupt handling and memory layout setup.</p>
+      <div class="project-meta">
+        <span class="project-lang"><span class="lang-dot c"></span> C / Makefile</span>
+        <a href="https://github.com/RCHKaushalya/os-kernel" class="project-link" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <h3>🖼️ Desktop Apps with Kivy</h3>
+      <p>A collection of GUI applications built with Kivy — exploring Python-based desktop development.</p>
+      <div class="project-meta">
+        <span class="project-lang"><span class="lang-dot python"></span> Python / Kivy</span>
+        <a href="https://github.com/RCHKaushalya/Desktop-Apps-with-Kivy" class="project-link" target="_blank">View on GitHub →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section id="contact">
+  <div class="contact-wrapper">
+    <p class="section-title">// Contact</p>
+    <h2 class="section-heading">Let's Build Something</h2>
+    <!-- EDIT THIS: Your message -->
+    <p>
+      I'm always open to interesting collaborations, research discussions,
+      or just talking about OS internals and compilers. Drop me a message.
+    </p>
+    <!-- EDIT THIS: Your email -->
+    <a href="mailto:rchkaushalya@gmail.com" class="btn">
+      <i class="fa fa-envelope"></i> rchkaushalya@gmail.com
+    </a>
+    <div class="social-links">
+      <a href="https://github.com/RCHKaushalya" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+      <!-- EDIT THIS: Add LinkedIn, Twitter etc. if you have them -->
+      <a href="https://www.linkedin.com/in/rasindu-appuhami-118891337/" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <!-- EDIT THIS: Your name -->
+  <p>Built by Rasindu Kaushalya · Hosted on GitHub Pages · <span id="year"></span></p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

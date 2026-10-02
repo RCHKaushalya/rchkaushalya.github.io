@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Menu, X, Terminal } from 'lucide-react';
 
-const navLinks = [
+const links = [
   { name: 'About', href: '#about' },
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
@@ -12,95 +12,84 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
+  const bgOpacity = useTransform(scrollY, [0, 80], [0, 1]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'glass-dark shadow-lg' : 'bg-transparent'
-      }`}
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed top-0 inset-x-0 z-50"
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <motion.a
-          href="#"
-          className="flex items-center gap-2 text-dark font-mono font-bold text-xl"
-          whileHover={{ scale: 1.05 }}
-        >
-          <Terminal className="w-6 h-6 text-gold" />
+      <motion.div
+        style={{ opacity: bgOpacity }}
+        className="absolute inset-0 glass-strong border-b border-dark/5"
+      />
+      <div className="relative max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="#" className="flex items-center gap-2.5 font-mono font-bold text-lg text-dark">
+          <Terminal size={20} className="text-gold" />
           <span>RCH<span className="text-gold">_</span></span>
-        </motion.a>
+        </a>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link, i) => (
-            <motion.a
-              key={link.name}
-              href={link.href}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="text-dark/70 hover:text-dark font-medium transition-colors relative group"
+        <div className="hidden md:flex items-center gap-1">
+          {links.map((l) => (
+            <a
+              key={l.name}
+              href={l.href}
+              className="px-4 py-2 text-sm font-medium text-dark/60 hover:text-dark rounded-lg hover:bg-dark/5 transition-all"
             >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold transition-all group-hover:w-full" />
-            </motion.a>
+              {l.name}
+            </a>
           ))}
-          <motion.a
+          <a
             href="https://github.com/RCHKaushalya"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="glass px-4 py-2 rounded-lg text-dark font-medium hover:glow transition-all"
+            className="ml-3 px-4 py-2 text-sm font-medium text-dark glass rounded-lg hover:glow-gold transition-all"
           >
             GitHub
-          </motion.a>
+          </a>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-dark"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        <button onClick={() => setOpen(!open)} className="md:hidden text-dark p-2" aria-label="Toggle menu">
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-dark border-t border-cream/10"
+            transition={{ duration: 0.3 }}
+            className="md:hidden glass-strong border-b border-dark/5 overflow-hidden"
           >
-            <div className="px-6 py-4 flex flex-col gap-4">
-              {navLinks.map((link) => (
+            <div className="px-6 py-4 flex flex-col gap-1">
+              {links.map((l) => (
                 <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-dark/70 hover:text-dark font-medium"
+                  key={l.name}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="px-4 py-3 text-dark/70 hover:text-dark rounded-lg hover:bg-dark/5 transition-all"
                 >
-                  {link.name}
+                  {l.name}
                 </a>
               ))}
               <a
                 href="https://github.com/RCHKaushalya"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass px-4 py-2 rounded-lg text-dark font-medium text-center"
+                className="px-4 py-3 text-dark font-medium"
               >
                 GitHub
               </a>

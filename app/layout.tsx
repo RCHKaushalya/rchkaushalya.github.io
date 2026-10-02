@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Rasindu Kaushalya — Systems Developer & CS Undergraduate',
+  title: 'Rasindu Kaushalya — Systems Developer',
   description: 'Portfolio of Rasindu Kaushalya — Systems programming, OS development, AI/ML, and compiler design.',
 };
 
@@ -13,9 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="noise">
-      <body className="font-sans">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -5,9 +5,9 @@ import { useRef } from 'react';
 import { MapPin, GraduationCap, Code, Target } from 'lucide-react';
 
 const stats = [
-  { label: 'Repositories', value: '46+' },
-  { label: 'Followers', value: '8' },
-  { label: 'Following', value: '14' },
+  { value: '46+', label: 'Repos' },
+  { value: '8', label: 'Followers' },
+  { value: '14', label: 'Following' },
 ];
 
 const info = [
@@ -19,61 +19,56 @@ const info = [
 
 export default function About() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="about" className="relative py-32 px-6">
+    <section id="about" className="relative py-28 px-6">
       <div className="max-w-6xl mx-auto" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="font-mono text-sage text-sm mb-2">{"// About Me"}</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-dark mb-12">Who I Am</h2>
+          <p className="font-mono text-sage text-sm mb-2">{"// About"}</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-dark mb-10">Who I Am</h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Bio Card */}
+        <div className="grid lg:grid-cols-5 gap-6">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2 glass rounded-2xl p-8 shadow-xl"
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="lg:col-span-3 glass rounded-2xl p-8 shadow-depth"
           >
-            <p className="text-dark/70 text-lg leading-relaxed mb-6">
-              I&apos;m a <strong className="text-dark">final-year Computer Science undergraduate</strong> at Trincomalee Campus, University of Trincomalee, with a deep passion for low-level systems programming and high-level AI/ML applications.
+            <p className="text-dark/70 leading-relaxed mb-4">
+              Final-year <strong className="text-dark">CS undergraduate</strong> passionate about low-level systems programming and AI/ML. Building at the intersection of <strong className="text-dark">operating systems, compilers, and artificial intelligence</strong>.
             </p>
-            <p className="text-dark/70 text-lg leading-relaxed mb-6">
-              I&apos;m currently exploring research at the intersection of <strong className="text-dark">operating systems, compilers, and artificial intelligence</strong>. My long-term goal is to build a domain-specific programming language and an AI-powered shell designed for productivity-driven developer environments.
-            </p>
-            <p className="text-dark/70 text-lg leading-relaxed">
-              When I&apos;m not writing C or Rust, I&apos;m documenting my journey through system programming, reading about compiler design, or experimenting with OS bootloaders from scratch.
+            <p className="text-dark/70 leading-relaxed">
+              Long-term goal: a <strong className="text-dark">domain-specific programming language</strong> and an <strong className="text-dark">AI-powered shell</strong> for developer productivity.
             </p>
           </motion.div>
 
-          {/* Info Card */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="glass-dark rounded-2xl p-8 shadow-xl"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="lg:col-span-2 glass-dark rounded-2xl p-8 shadow-depth"
           >
-            <div className="space-y-6">
+            <div className="space-y-5">
               {info.map(({ icon: Icon, label, value }, i) => (
                 <motion.div
                   key={label}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 16 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.5 + i * 0.1 }}
-                  className="flex items-center gap-4"
+                  transition={{ delay: 0.4 + i * 0.08 }}
+                  className="flex items-center gap-3"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-gold/20 flex items-center justify-center">
-                    <Icon size={18} className="text-gold" />
+                  <div className="w-9 h-9 rounded-lg bg-gold/15 flex items-center justify-center flex-shrink-0">
+                    <Icon size={16} className="text-gold" />
                   </div>
                   <div>
-                    <p className="text-cream/50 text-xs font-mono">{label}</p>
-                    <p className="text-cream font-medium">{value}</p>
+                    <p className="text-cream/40 text-[11px] font-mono uppercase tracking-wider">{label}</p>
+                    <p className="text-cream text-sm font-medium">{value}</p>
                   </div>
                 </motion.div>
               ))}
@@ -81,18 +76,17 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-6 mt-8">
-          {stats.map((stat, i) => (
+        <div className="grid grid-cols-3 gap-4 mt-6">
+          {stats.map((s, i) => (
             <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
+              key={s.label}
+              initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.6 + i * 0.1 }}
-              className="glass rounded-2xl p-6 text-center shadow-lg"
+              transition={{ delay: 0.5 + i * 0.1 }}
+              className="glass rounded-2xl p-5 text-center shadow-depth"
             >
-              <p className="text-3xl md:text-4xl font-bold gradient-text">{stat.value}</p>
-              <p className="text-dark/50 text-sm font-mono mt-1">{stat.label}</p>
+              <p className="text-2xl md:text-3xl font-bold gradient-text">{s.value}</p>
+              <p className="text-dark/40 text-xs font-mono mt-1">{s.label}</p>
             </motion.div>
           ))}
         </div>
